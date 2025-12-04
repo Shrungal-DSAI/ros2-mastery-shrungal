@@ -1,4 +1,4 @@
-from setuptools import find_packages, setup
+from setuptools import setup, find_packages
 
 package_name = 'talker_listener'
 
@@ -10,18 +10,14 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name + '/launch', ['launch/talker_listener.launch.py']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='sskspy',
     maintainer_email='shrungalkulkarni30@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
-    extras_require={
-        'test': [
-            'pytest',
-        ],
-    },
+    description='Minimal talker/listener example for ROS2 (ament_python)',
+    license='Apache-2.0',
     entry_points={
         'console_scripts': [
             'talker = talker_listener.talker:main',
