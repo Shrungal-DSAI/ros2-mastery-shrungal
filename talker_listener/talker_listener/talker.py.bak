@@ -5,6 +5,12 @@ from rclpy.parameter import Parameter
 from rcl_interfaces.msg import SetParametersResult
 from std_msgs.msg import String
 
+
+def format_message(prefix: str, i: int) -> str:
+    """Return the message string used by the talker; pure function suitable for unit testing."""
+    return f"{prefix} {i}"
+
+
 class MinimalPublisher(Node):
     def __init__(self):
         super().__init__('minimal_publisher')
@@ -28,10 +34,11 @@ class MinimalPublisher(Node):
 
     def timer_callback(self):
         msg = String()
-        msg.data = f'{self.msg_prefix} {self.i}'
+        msg.data = format_message(self.msg_prefix, self.i)
         self.pub.publish(msg)
         self.get_logger().info('Publishing: "%s"' % msg.data)
         self.i += 1
+
 
 def main(args=None):
     rclpy.init(args=args)
@@ -39,6 +46,7 @@ def main(args=None):
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
